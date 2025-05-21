@@ -1,0 +1,28 @@
+{
+    "1": {
+        "knn_accuracy": 11.568123393316196,
+        "linear_accuracy": 42.159383033419026
+    },
+    "2": {
+        "knn_accuracy": 12.226863753213367,
+        "linear_accuracy": 38.51221079691517
+    },
+    "11": {
+        "linear_accuracy": 54.38624678663239
+    },
+    "12": {
+        "linear_accuracy": 53.71143958868895
+    },
+    "13": {
+        "linear_accuracy": 53.88817480719794
+    },
+    "14": {
+        "linear_accuracy": 53.82390745501285
+    },
+    "15": {
+        "linear_accuracy": 54.28984575835476
+    },
+    "best_model": {
+        "linear_accuracy": 12.885604798793793
+    }
+}
