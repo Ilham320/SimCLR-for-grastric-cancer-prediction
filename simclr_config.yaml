@@ -1,0 +1,49 @@
+# SimCLR configuration for gastric cancer histology dataset
+dataset_dir: "C:/Users/mahmu/data/GCHTID/train"
+train_eval_dir: "C:/Users/mahmu/data/GCHTID/train"
+test_eval_dir: "C:/Users/mahmu/data/GCHTID/test"
+checkpoint_dir: "checkpoints"
+seed: 42
+
+# Model parameters
+backbone: "resnet50"      # Options: resnet18, resnet34, resnet50, densenet121
+pretrained: true          # Use ImageNet pre-trained weights
+image_size: 224
+projection_size: 384      # Increased from 256 to 384 for richer feature space
+projection_hidden_size: 2048  # Hidden dimension in projection head
+temperature: 0.05        # Reduced from 0.07 for sharper contrastive learning
+
+# Training parameters
+batch_size: 80           # Optimized for RTX 3070
+num_workers: 2           # For data loading (use 2 for 8-core Ryzen)
+epochs: 100
+warmup_epochs: 10
+empty_cache_freq: 20
+accumulate_grad_batches: 2  # Added gradient accumulation for effective batch size 160
+
+# Optimizer settings
+optimizer:
+  name: "adamw"
+  lr: 0.0005             # Increased from 0.0003 for faster convergence
+  weight_decay: 0.1      # Strong regularization for better generalization
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-8            # Added epsilon parameter for numerical stability
+
+# Learning rate schedule
+scheduler:
+  final_lr_factor: 0.05   # Min LR = 5% of base LR
+  cosine_decay: true      # Use cosine decay schedule
+
+# Memory optimization for RTX 3070
+memory_optimization:
+  gradient_checkpointing: true
+  cudnn_benchmark: true
+  pin_memory: true
+  float16_precision: true
+  
+# Augmentation strength - controls histology-specific transformations
+augmentation:
+  color_jitter_strength: 0.5    # Stronger color jittering (0.0-1.0)
+  gaussian_blur_prob: 0.5       # Probability of applying Gaussian blur
+  grayscale_prob: 0.2           # Probability of grayscale conversion
